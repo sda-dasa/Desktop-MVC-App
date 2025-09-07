@@ -3,15 +3,6 @@ import re
 import sys
 
 def parse_test_path(input_str):
-    """
-    Парсит строку вида "L<num> T<num>[.<num>[.<a-z>]] [V<num>] [comment]" и возвращает путь к тесту.
-    
-    Примеры:
-    >>> parse_test_path("L1 T1 V1")
-    'tests/lab1/task1/opt1_test.rb'
-    >>> parse_test_path("L1 T4.4.a commit changes")
-    'tests/lab1/task4/p4/a_test.rb'
-    """
     pattern = r'L(\d+)\s+T(\d+(?:\.\d+(?:\.[a-z])?)?)(?:\s+V(\d+))?'
     match = re.search(pattern, input_str)
     
@@ -24,23 +15,25 @@ def parse_test_path(input_str):
     
     parts = task_full.split('.')
     main_task = parts[0]
-
+    
+    # Базовый путь всегда включает lab и task
     path = f"tests/lab{lab_num}/task{main_task}"
     
+    # Обработка подпунктов
     if len(parts) > 1:
         path += f"/p{parts[1]}"
-        if len(parts) > 2:
+        if len(parts) > 2:  # Буквенный подпункт
             path += f"/{parts[2]}"
     
+    # Обработка варианта
     if variant_num:
-        if len(parts) > 1: 
-            path += f"_opt{variant_num}"
-        else:
-            path += f"/opt{variant_num}"
+        path += f"/opt{variant_num}"
     
+    # Добавляем расширение файла
     path += "_test.rb"
     
     return path
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
