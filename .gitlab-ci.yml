@@ -6,34 +6,47 @@ variables:
   DOCKER_IMAGE: "ruby-tests-custom"
   REPORT_PATH: "test_reports"
   TZ: "Europe/Moscow"
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
 
 build-and-test:
   stage: testing
+  image: creatior3/ruby-tests-runner:latest
+  services:
+    - name: docker:20.10-dind
+      alias: docker
+      command: ["--tls=false"]
+      variables:
+        DOCKER_TLS_CERTDIR: ""
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
   before_script:
-    - export TEST_PATH=$(python3 ./get_path.py "$CI_COMMIT_TITLE")
+    - export TEST_PATH=$(python3 /usr/local/bin/get_path.py "$CI_COMMIT_TITLE")
     - mkdir -p $REPORT_PATH
   script:
+    - docker info
     - docker container prune -f
     - docker rmi creatior3/ruby-tests:latest 2>/dev/null || true
     - docker rmi $DOCKER_IMAGE 2>/dev/null || true
     - docker build -t $DOCKER_IMAGE .
-    - chmod +x ./run_tests.sh
-    - ./run_tests.sh "$DOCKER_IMAGE" "$REPORT_PATH" "$TEST_PATH" "$CI_COMMIT_TITLE"
+    - /usr/local/bin/run_tests.sh "$DOCKER_IMAGE" "$REPORT_PATH" "$TEST_PATH" "$CI_COMMIT_TITLE"
   artifacts:
     paths:
       - $REPORT_PATH
     expire_in: 1 week
   rules:
     - if: '$CI_COMMIT_REF_NAME == "test"'
-
+#xixi pashalko
 push-report:
   stage: push_report
   script:
     - git config user.name "CI Bot"
     - git config user.email "ci-bot@example.com"
     - git config pull.rebase false
-    - git checkout $CI_COMMIT_BRANCH
-    - git pull
+    - git fetch origin $CI_COMMIT_BRANCH
+    - git switch -C $CI_COMMIT_BRANCH origin/$CI_COMMIT_BRANCH
+    - git pull origin $CI_COMMIT_BRANCH
     - export REPORT_NAME=$(cat $REPORT_PATH/report_name.txt)
     - git add "$REPORT_PATH/$REPORT_NAME"
     - rm -f $REPORT_PATH/report_name.txt $REPORT_PATH/test_path.txt
