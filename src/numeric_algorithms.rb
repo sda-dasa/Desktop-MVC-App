@@ -12,3 +12,18 @@ i = i + 1
 end 
 return count
 end
+
+def min_odd_digit (a)
+min_numb = 10
+i = a
+while i !=0
+	curr_numb = i % 10
+	if curr_numb % 2 == 1 and curr_numb < min_numb
+		then min_numb = curr_numb
+	end
+	
+	i = (i - curr_numb) / 10
+end
+
+return min_numb
+end
