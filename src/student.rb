@@ -1,5 +1,5 @@
 class Student
-	def initialize (first_name, last_name, surname = nil, phone= nil, tg = nil, mail = nil, git = nil, id = nil) 
+	def initialize (first_name: , last_name: , surname: nil, phone: nil, tg: nil, mail: nil, git: nil, id : nil) 
 		@first_name = first_name
 		@last_name = last_name
 		@surname = surname
@@ -9,10 +9,5 @@ class Student
 		@git = git
 		@id = id
 	end
-
-	attr_accessor :fisrt_name, :last_name, :surname, :git
-	attr_reader :id
-	
-
 
 end
