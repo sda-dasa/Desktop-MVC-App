@@ -9,4 +9,10 @@ class Student
 		@git = git
 		@id = id
 	end
+
+	attr_accessor: :fisrt_name, :last_name, :surname, :git
+	attr_reader :id
+	
+
+
 end
