@@ -220,5 +220,4 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		end
 		return false
 	end
-
 end
