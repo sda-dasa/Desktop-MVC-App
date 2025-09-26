@@ -1,5 +1,5 @@
 def non_three_divs (numb)
-i = 1
+i = 2
 count = 0
 while i < numb
 	if i%3==0 
