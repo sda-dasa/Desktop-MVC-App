@@ -38,7 +38,7 @@ class Student
 		else 
 			puts "git введен не корректно!"
 		end
-		if id > 0
+		if id.nil? or id > 0
 			then @id = id
 		else 
 			puts "id должен быть не отрицательным числом!"
@@ -81,11 +81,11 @@ class Student
 
 
 	def contact
-		if has_telegram? 
+		if !@telegram.nil? 
 			return "tg: #{@telegram}"
-		elseif has_mail?
+		elsif !@email.nil? 
 			return "email: #{@email}"
-		elseif has_phone?
+		elsif !@phone.nil? 
 			return "phone: #{@phone}"
 		else 
 			puts "Контакты не указаны"
@@ -101,12 +101,12 @@ class Student
 						then @phone = value 
 					end
       				when :email 
-					if valid_mail? value
-						then @mail = value 
+					if valid_email? value
+						then @email = value 
 					end
 				when :telegram 
-					if valid_tg? value
-						then @tg = value 
+					if valid_telegram? value
+						then @telegram = value 
 					end
 			end
 		end
@@ -122,17 +122,16 @@ class Student
 	end
 	
 	def to_s 
-		return "last_name: #{@last_name} first_name: #{@first_name} patronymic: #{@patronymic} 
-phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
+		return "last_name: #{@last_name} first_name: #{@first_name} patronymic: #{@patronymic} phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def short_info
 		if !@id.nil?
-		if has_telegram? 
+		if !@telegram.nil? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} tg: #{@telegram} git: #{@git}"
-		elseif has_email? 
+		elseif !@email.nil? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
-		elsif has_phone? 
+		elsif !@phone.nil?
 			return "id: #{@id} last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
 		else 
 			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
@@ -140,11 +139,11 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		end
 
 		end
-		if has_telegram? 
+		if !@telegram.nil?  
 			return "last_name_initials: #{last_name_initials} tg: #{@telegram} git: #{@git}"
-		elsif has_mail? 
+		elsif !@email.nil? 
 			return "last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
-		elsif has_phone? 
+		elsif !@phone.nil? 
 			return "last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
 		else 
 			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
@@ -152,15 +151,10 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		
 	end
 
-	def has_telegram?
-		return !@telegram.nil?
+	def has_contact?
+		!@telegram.nil?or !@email.nil?or !@phone.nil?
 	end
-	def has_email?
-		return !@email.nil?
-	end
-	def has_phone?
-		return !@phone.nil?
-	end
+
 	def has_git?
 		return!@git.nil?
 	end
