@@ -1,7 +1,7 @@
 def non_three_divs (numb)
 i = 2
 count = 0
-while i < numb
+while i < numb - 1
 	if i%3==0 
 		then i = i + 1
 	end
