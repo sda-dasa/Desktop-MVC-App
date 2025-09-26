@@ -9,5 +9,4 @@ class Student
 		@git = git
 		@id = id
 	end
-
 end
