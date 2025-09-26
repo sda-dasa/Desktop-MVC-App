@@ -24,6 +24,8 @@ while i !=0
 	
 	i = (i - curr_numb) / 10
 end
-
+if min_numb == 10 
+	then min_numb = nil
+end
 return min_numb
 end
