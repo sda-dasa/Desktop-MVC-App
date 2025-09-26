@@ -153,16 +153,16 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def has_tg?
-		return not @tg.to_s.empty?
+		return not @tg.nil?
 	end
 	def has_mail?
-		return not @mail.to_s.empty?
+		return not @mail.nil?
 	end
 	def has_phone?
-		return not @phone.to_s.empty?
+		return not @phone.nil?
 	end
 	def has_git?
-		return not @git.to_s.empty?
+		return not @git.nil?
 	end
 
 
