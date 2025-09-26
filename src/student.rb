@@ -81,13 +81,15 @@ class Student
 
 
 	def contact
-		case x
-			when has_tg?
-				return "tg: #{@tg}"
-			when has_mail?
-				return "mail: #{@mail}"
-			when has_phone?
-				return "mail: #{@phone}"
+		if has_tg? 
+			return "tg: #{@tg}"
+		elseif has_mail?
+			return "mail: #{@mail}"
+		elseif has_phone?
+			return "mail: #{@phone}"
+		else 
+			puts "Контакты не указаны"
+			return nil
 		end	
 	end
 
@@ -126,38 +128,41 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 
 	def short_info
 		if has_id?
-		then case x
-		when has_tg? 
-			return "id: #{@id} last_name_initials: #{@last_name_initials} tg: #{@tg} git: #{@git}"
-		when has_mail? 
-			return "id: #{@id} last_name_initials: #{@last_name_initials} mail: #{@mail} git: #{@git}"
-		when has_phone? 
-			return "id: #{@id} last_name_initials: #{@last_name_initials} phone: #{@phone} git: #{@git}"
+		if has_tg? 
+			return "id: #{@id} last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
+		elseif has_mail? 
+			return "id: #{@id} last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
+		elsif has_phone? 
+			return "id: #{@id} last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
+		else 
+			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
+	
 		end
 
 		end
-		case x
-		when has_tg? 
-			return "last_name_initials: #{@last_name_initials} tg: #{@tg} git: #{@git}"
-		when has_mail? 
-			return "last_name_initials: #{@last_name_initials} mail: #{@mail} git: #{@git}"
-		when has_phone? 
-			return "last_name_initials: #{@last_name_initials} phone: #{@phone} git: #{@git}"
+		if has_tg? 
+			return "last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
+		elseif has_mail? 
+			return "last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
+		elseif has_phone? 
+			return "last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
+		else 
+			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
 		end
 		
 	end
 
 	def has_tg?
-		return not @tg.empty?
+		return not @tg.to_s.empty?
 	end
 	def has_mail?
-		return not @mail.empty?
+		return not @mail.to_s.empty?
 	end
 	def has_phone?
-		return not @phone.empty?
+		return not @phone.to_s.empty?
 	end
 	def has_git?
-		return not @git.empty?
+		return not @git.to_s.empty?
 	end
 
 
@@ -171,7 +176,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 
 	def valid_surname? (value)
 		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
-		if  value.match?(regex) or value.nil?
+		if  value.nil? or value.match?(regex)
 			then return true
 		end
 		return false
@@ -179,7 +184,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	
 	def valid_phone? (value)
 		regex = /\A8[0-9]{10}\z/
-		if  value.match?(regex) or value.empty?
+		if  value.nil? or value.match?(regex)
 			then return true
 		end
 		return false
@@ -187,7 +192,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	
 	def valid_tg? (value)
 		regex = /\A@?[a-zA-Z0-9_]{5,32}\z/
-		if  value.match?(regex) or value.empty?
+		if value.nil? or  value.match?(regex)
 			then return true
 		end
 		return false
@@ -195,7 +200,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	
 	def valid_mail? (value)
 		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
-		if  value.match?(regex) or value.empty?
+		if  value.nil? or value.match?(regex)
 			then return true
 		end
 		return false
@@ -203,7 +208,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 
 	def valid_git? (value)
 		regex = /\A[a-zA-Z0-9_-]+\z/
-		if  value.match?(regex) or value.empty?
+		if value.nil? or value.match?(regex)
 			then return true
 		end
 		return false
