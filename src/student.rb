@@ -1,5 +1,5 @@
 class Student
-	def initialize (first_name: , last_name: , surname: nil, phone: nil, tg: nil, mail: nil, git: nil, id: nil) 
+	def initialize (first_name: , last_name: , patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil, id: nil) 
 		if valid_name? first_name  
 			then @first_name = first_name
 		else 
@@ -11,8 +11,8 @@ class Student
 			puts "Фамилия введена не корректно!"
 		end
 
-		if valid_surname? surname
-			then @surname = surname
+		if valid_patronymic? patronymic
+			then @patronymic= patronymic
 		else 
 			puts "Отчество введено не корректно!"
 		end
@@ -22,13 +22,13 @@ class Student
 			puts "Телефон введен не корректно!"
 		end
 
-		if valid_tg? tg
-			then @tg = tg
+		if valid_telegram? telegram
+			then @telegram = telegram
 		else 
 			puts "tg-никнейм введен не корректно!"
 		end
-		if valid_mail? mail
-			then @mail = mail
+		if valid_email? email
+			then @email = email
 		else 
 			puts "Адрес электронной почты введен не корректно!"
 		end
@@ -38,7 +38,7 @@ class Student
 		else 
 			puts "git введен не корректно!"
 		end
-		if valid_id? id
+		if id > 0
 			then @id = id
 		else 
 			puts "id должен быть не отрицательным числом!"
@@ -48,7 +48,7 @@ class Student
 
 	
 	def first_name=(val)
-		if valid_first_name? val
+		if valid_name? val
 			then @first_name = val
 		else 
 			puts "Имя введено не корректно!"
@@ -56,16 +56,16 @@ class Student
 	end
 
 	def last_name=(val)
-		if valid_last_name? val  
+		if valid_name? val  
 			then @last_name = val
 		else 
 			puts "Фамилия введена не корректно!"
 		end
 	end
 
-	def surname=(val)
-		if valid_surname? val
-			then @surname = val
+	def patronymic=(val)
+		if valid_patronymic? val
+			then @patronymic = val
 		else 
 			puts "Отчество введено не корректно!"
 		end
@@ -81,10 +81,10 @@ class Student
 
 
 	def contact
-		if has_tg? 
-			return "tg: #{@tg}"
+		if has_telegram? 
+			return "tg: #{@telegram}"
 		elseif has_mail?
-			return "mail: #{@mail}"
+			return "email: #{@email}"
 		elseif has_phone?
 			return "phone: #{@phone}"
 		else 
@@ -100,11 +100,11 @@ class Student
 					if valid_phone? value
 						then @phone = value 
 					end
-      				when :mail 
+      				when :email 
 					if valid_mail? value
 						then @mail = value 
 					end
-				when :tg 
+				when :telegram 
 					if valid_tg? value
 						then @tg = value 
 					end
@@ -115,23 +115,23 @@ class Student
 	attr_reader :id, :first_name, :last_name, :surname, :git
 
 	def last_name_initials
-		if @surname.nil?
+		if @patronymic.nil?
 			then return "#{@last_name} #{@first_name[0]}."
 		end
-		return "#{@last_name} #{@first_name[0]}.#{@surname[0]}."
+		return "#{@last_name} #{@first_name[0]}.#{@patronymic[0]}."
 	end
 	
 	def to_s 
-		return "last_name: #{@last_name} first_name: #{@first_name} surname: #{@surname} 
+		return "last_name: #{@last_name} first_name: #{@first_name} patronymic: #{@patronymic} 
 phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def short_info
-		if has_id?
-		if has_tg? 
-			return "id: #{@id} last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
-		elsif has_mail? 
-			return "id: #{@id} last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
+		if !@id.nil?
+		if has_telegram? 
+			return "id: #{@id} last_name_initials: #{last_name_initials} tg: #{@telegram} git: #{@git}"
+		elseif has_email? 
+			return "id: #{@id} last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
 		elsif has_phone? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
 		else 
@@ -140,10 +140,10 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		end
 
 		end
-		if has_tg? 
-			return "last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
+		if has_telegram? 
+			return "last_name_initials: #{last_name_initials} tg: #{@telegram} git: #{@git}"
 		elsif has_mail? 
-			return "last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
+			return "last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
 		elsif has_phone? 
 			return "last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
 		else 
@@ -152,17 +152,17 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		
 	end
 
-	def has_tg?
-		return !@tg.nil?
+	def has_telegram?
+		return !@telegram.nil?
 	end
-	def has_mail?
-		return !@mail.nil?
+	def has_email?
+		return !@email.nil?
 	end
 	def has_phone?
 		return !@phone.nil?
 	end
 	def has_git?
-		return !@git.nil?
+		return!@git.nil?
 	end
 
 
@@ -174,7 +174,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		return false
 	end
 
-	def valid_surname? (value)
+	def valid_patronymic? (value)
 		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
 		if  value.nil? or value.match?(regex)
 			then return true
@@ -190,7 +190,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		return false
 	end		
 	
-	def valid_tg? (value)
+	def valid_telegram? (value)
 		regex = /\A@?[a-zA-Z0-9_]{5,32}\z/
 		if value.nil? or  value.match?(regex)
 			then return true
@@ -198,7 +198,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		return false
 	end
 	
-	def valid_mail? (value)
+	def valid_email? (value)
 		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
 		if  value.nil? or value.match?(regex)
 			then return true
@@ -213,11 +213,4 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		end
 		return false
 	end
-
-	def valid_id? (value)
-		if value.nil? or value.to_f != nil and value.to_f >= 0 
-			then return true
-		end
-		return false
-	end	
 end
