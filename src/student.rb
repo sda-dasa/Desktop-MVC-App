@@ -178,7 +178,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 	
 	def valid_phone? (value)
-		regex = /\A\8[0-9]{10}\z/
+		regex = /\A8[0-9]{10}\z/
 		if  value.match?(regex) or value.empty?
 			then return true
 		end
@@ -210,7 +210,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def valid_id? (value)
-		if value.nil? or value.to_f != nil and >= 0 
+		if value.nil? or value.to_f != nil and value.to_f >= 0 
 			then return true
 		end
 		return false
