@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Error Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        pre { background-color: #f5f5f5; padding: 10px; border-radius: 5px; }
+        .error { color: #d9534f; }
+    </style>
+</head>
+<body>
+    <h1 class="error">Test Execution Failed</h1>
+    <p>Error occurred while running tests for: tests/lab1/task4_test.rb</p>
+    <h2>Error Details:</h2>
+    <pre>Ошибка загрузки теста: /app/src/student.rb:151: syntax error, unexpected instance variable, expecting '('
+		return not @tg.empty?
+		           ^~~
+/app/src/student.rb:154: syntax error, unexpected instance variable, expecting '('
+		return not @mail.empty?
+		           ^~~~~
+/app/src/student.rb:157: syntax error, unexpected instance variable, expecting '('
+		return not @phone.empty?
+		           ^~~~~~
+/app/src/student.rb:160: syntax error, unexpected instance variable, expecting '('
+		return not @git.empty?
+		           ^~~~
+/app/src/student.rb:181: invalid backref number/name: /\A\8[0-9]{10}\z/
+/app/src/student.rb:213: syntax error, unexpected >=
+...il? or value.to_f != nil and >= 0 
+...                             ^~</pre>
+</body>
+</html>
