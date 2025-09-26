@@ -43,8 +43,8 @@ while k <= max and comon_divisor == 1
 k = k + 1
 end
 
-if comon_divisor != 1 
-then return true
+if comon_divisor != 1 and numb_1 != 0 or numb_2 != 0
+	then return true
 else return false
 end
 
