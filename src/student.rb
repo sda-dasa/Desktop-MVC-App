@@ -86,7 +86,7 @@ class Student
 		elseif has_mail?
 			return "mail: #{@mail}"
 		elseif has_phone?
-			return "mail: #{@phone}"
+			return "phone: #{@phone}"
 		else 
 			puts "Контакты не указаны"
 			return nil
@@ -130,7 +130,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		if has_id?
 		if has_tg? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
-		elseif has_mail? 
+		elsif has_mail? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
 		elsif has_phone? 
 			return "id: #{@id} last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
@@ -142,9 +142,9 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 		end
 		if has_tg? 
 			return "last_name_initials: #{last_name_initials} tg: #{@tg} git: #{@git}"
-		elseif has_mail? 
+		elsif has_mail? 
 			return "last_name_initials: #{last_name_initials} mail: #{@mail} git: #{@git}"
-		elseif has_phone? 
+		elsif has_phone? 
 			return "last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
 		else 
 			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
@@ -153,16 +153,16 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def has_tg?
-		return not @tg.nil?
+		return !@tg.nil?
 	end
 	def has_mail?
-		return not @mail.nil?
+		return !@mail.nil?
 	end
 	def has_phone?
-		return not @phone.nil?
+		return !@phone.nil?
 	end
 	def has_git?
-		return not @git.nil?
+		return !@git.nil?
 	end
 
 
@@ -207,7 +207,7 @@ phone: #{@phone} mail: #{@mail} tg: #{@tg} git: #{@git} "
 	end
 
 	def valid_git? (value)
-		regex = /\A[a-zA-Z0-9_-]+\z/
+		regex = %r{\Ahttps://github\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
 		if value.nil? or value.match?(regex)
 			then return true
 		end
