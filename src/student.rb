@@ -215,11 +215,3 @@ class Student
 	end
 end
 
-tom = Student.new(first_name: '123', last_name: 'bill', phone: '+79180123122')
-puts tom.has_contact?
-# tom.contact={phone: "89180123456"}
-puts tom
-tom.short_info
-# tom.contact= {phone: "+123123123123", telegram: "@new_tom_tg", git:"put"}
-tom.contact
-puts tom.git
