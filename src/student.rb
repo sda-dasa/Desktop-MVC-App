@@ -1,7 +1,7 @@
 class Student
 	def self.valid_name? (value)
 		regex = /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
-		if  value.nil? or value.match?(regex)
+		if  !value.nil? and value.match?(regex)
 			then return true
 		end
 		return false
@@ -60,7 +60,7 @@ class Student
 			raise ArgumentError.new ("Фамилия введено не корректно!")
 		end
 
-		if self.class.valid_name? patronymic
+		if patronymic.nil? or self.class.valid_name? patronymic
 			@patronymic= patronymic
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
