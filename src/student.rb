@@ -1,39 +1,88 @@
 class Student
+	def self.valid_name? (value)
+		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
+		if  value.match?(regex)
+			then return true
+		end
+		return false
+	end
+
+	def self.valid_patronymic? (value)
+		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
+		if  value.nil? or value.match?(regex)
+			then return true
+		end
+		return false
+	end
+	
+	def self.valid_phone? (value)
+		regex = /\A\+7[0-9]{10}\z/
+		if  value.nil? or value.match?(regex)
+			then return true
+		end
+		return false
+	end		
+	
+	def self.valid_telegram? (value)
+		regex = /\A@[a-zA-Z0-9_]{5,32}\z/
+		if value.nil? or  value.match?(regex)
+			then return true
+		end
+		return false
+	end
+	
+	def self.valid_email? (value)
+		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
+		if  value.nil? or value.match?(regex)
+			then return true
+		end
+		return false
+	end
+
+	def self.valid_git? (value)
+		regex = %r{\Ahttps://git(hub)?(lab)?\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
+		if value.nil? or value.match?(regex)
+			then return true
+		end
+		return false
+	end
+
+
 	def initialize (first_name: , last_name: , patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil, id: nil) 
-		if valid_name? first_name  
+		if self.class.valid_name? first_name  
 			@first_name = first_name
 		else 
 			raise ArgumentError.new ("Имя введено не корректно!")
 		end
-		if valid_name? last_name  
+		if self.class.valid_name? last_name  
 			@last_name = last_name
 		else 
 			raise ArgumentError.new ("Фамилия введено не корректно!")
 		end
 
-		if valid_patronymic? patronymic
+		if self.class.valid_patronymic? patronymic
 			@patronymic= patronymic
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
 		end
-		if valid_phone? phone
+		if self.class.valid_phone? phone
 			then @phone = phone
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
 		end
 
-		if valid_telegram? telegram
+		if self.class.valid_telegram? telegram
 			then @telegram = telegram
 		else 
 			raise ArgumentError.new ("telegram введено не корректно!")
 		end
-		if valid_email? email
+		if self.class.valid_email? email
 			then @email = email
 		else 
   		raise ArgumentError.new ("email введено не корректно!")
 		end
 
-		if valid_git? git
+		if self.class.valid_git? git
 			then @git = git
 		else 
 			raise ArgumentError.new ("git введено не корректно!")
@@ -128,7 +177,7 @@ class Student
 	end
 	
 	def to_s 
-		return "last_name - #{@last_name} first_name - #{@first_name} patronymic - #{@patronymic} phone - #{@phone} email - #{@mail} telegram - #{@tg} git - #{@git} "
+		return "last_name - #{@last_name} first_name - #{@first_name} patronymic - #{@patronymic} phone - #{@phone} email - #{@email} telegram - #{@telegram} git - #{@git} "
 	end
 
 	def short_info
@@ -158,59 +207,12 @@ class Student
 	end
 
 	def has_contact?
-		!@telegram.nil? or !@email.nil? or !@phone.nil?
+		!@telegram.nil? or !@email.nil?or !@phone.nil?
 	end
 
 	def has_git?
 		return !@git.nil?
 	end 
 
-
-	def valid_name? (value)
-		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
-		if  value.match?(regex)
-			then return true
-		end
-		return false
-	end
-
-	def valid_patronymic? (value)
-		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
-		if  value.nil? or value.match?(regex)
-			then return true
-		end
-		return false
-	end
-	
-	def valid_phone? (value)
-		regex = /\A\+7[0-9]{10}\z/
-		if  value.nil? or value.match?(regex)
-			then return true
-		end
-		return false
-	end		
-	
-	def valid_telegram? (value)
-		regex = /\A@[a-zA-Z0-9_]{5,32}\z/
-		if value.nil? or  value.match?(regex)
-			then return true
-		end
-		return false
-	end
-	
-	def valid_email? (value)
-		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
-		if  value.nil? or value.match?(regex)
-			then return true
-		end
-		return false
-	end
-
-	def valid_git? (value)
-		regex = %r{\Ahttps://github\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
-		if value.nil? or value.match?(regex)
-			then return true
-		end
-		return false
-	end
 end
+
