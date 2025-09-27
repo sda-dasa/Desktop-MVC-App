@@ -97,7 +97,7 @@ class Student
 
 	
 	def first_name=(val)
-		if valid_name? val
+		if self.class.valid_name? val
 			then @first_name = val
 		else 
 			raise ArgumentError.new ("имя введено не корректно!")
@@ -105,7 +105,7 @@ class Student
 	end
 
 	def last_name=(val)
-		if valid_name? val  
+		if self.class.valid_name? val  
 			then @last_name = val
 		else 
 			raise ArgumentError.new ("Фамилия введено не корректно!")
@@ -113,7 +113,7 @@ class Student
 	end
 
 	def patronymic=(val)
-		if valid_patronymic? val
+		if self.class.valid_patronymic? val
 			then @patronymic = val
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
@@ -121,7 +121,7 @@ class Student
 	end
 
 	def git=(val)
-		if valid_git? val
+		if self.class.valid_git? val
 			then @git = val
 		else 
 			raise ArgumentError.new ("git введено не корректно!")
@@ -146,19 +146,19 @@ class Student
 		contacts.each do |key, value|
       			case key
       				when :phone 
-					if valid_phone? value
+					if self.class.valid_phone? value
 						then @phone = value 
 					else 
 						raise ArgumentError.new ("телефон введено не корректно!")
 					end
       				when :email 
-					if valid_email? value
+					if self.class.valid_email? value
 						then @email = value 
 					else 
 						raise ArgumentError.new ("почта введено не корректно!")
 					end
 				when :telegram 
-					if valid_telegram? value
+					if self.class.valid_telegram? value
 						then @telegram = value 
 					else 
 						raise ArgumentError.new ("telegram введено не корректно!")
