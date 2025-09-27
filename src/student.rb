@@ -60,7 +60,7 @@ class Student
 			raise ArgumentError.new ("Фамилия введено не корректно!")
 		end
 
-		if self.class.valid_patronymic? patronymic
+		if self.class.valid_name? patronymic
 			@patronymic= patronymic
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
