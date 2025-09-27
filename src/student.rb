@@ -1,14 +1,6 @@
 class Student
 	def self.valid_name? (value)
-		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
-		if  value.match?(regex)
-			then return true
-		end
-		return false
-	end
-
-	def self.valid_patronymic? (value)
-		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
+		regex = /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
 		if  value.nil? or value.match?(regex)
 			then return true
 		end
@@ -16,7 +8,15 @@ class Student
 	end
 	
 	def self.valid_phone? (value)
-		regex = /\A\+7[0-9]{10}\z/
+		regex = /\A8[0-9]{10}\z/
+		if !value.nil?
+			value.delete! '-'
+			value.delete! ' '
+			value.delete! '()'
+			value.delete! '+'
+			value = value.tr('7', '8')
+			puts value
+		end
 		if  value.nil? or value.match?(regex)
 			then return true
 		end
@@ -32,7 +32,7 @@ class Student
 	end
 	
 	def self.valid_email? (value)
-		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
+		regex = /\A[\w+\-.\+]+@[a-z\d\-]+(\.[a-z]+)+\z/i
 		if  value.nil? or value.match?(regex)
 			then return true
 		end
@@ -68,18 +68,18 @@ class Student
 		if self.class.valid_phone? phone
 			then @phone = phone
 		else 
-			raise ArgumentError.new ("Отчество введено не корректно!")
+			raise ArgumentError.new ("Телефон введен не корректно!")
 		end
 
 		if self.class.valid_telegram? telegram
 			then @telegram = telegram
 		else 
-			raise ArgumentError.new ("telegram введено не корректно!")
+			raise ArgumentError.new ("telegram введен не корректно!")
 		end
 		if self.class.valid_email? email
 			then @email = email
 		else 
-  		raise ArgumentError.new ("email введено не корректно!")
+  		raise ArgumentError.new ("email введен не корректно!")
 		end
 
 		if self.class.valid_git? git
@@ -113,7 +113,7 @@ class Student
 	end
 
 	def patronymic=(val)
-		if self.class.valid_patronymic? val
+		if self.class.valid_name? val
 			then @patronymic = val
 		else 
 			raise ArgumentError.new ("Отчество введено не корректно!")
@@ -197,9 +197,9 @@ class Student
 		if !@telegram.nil?  
 			return "last_name_initials - #{last_name_initials} telegram - #{@telegram} git - #{@git}"
 		elsif !@email.nil? 
-			return "last_name_initials - #{last_name_initials} email: #{@email} git - #{@git}"
+			return "last_name_initials - #{last_name_initials} email - #{@email} git - #{@git}"
 		elsif !@phone.nil? 
-			return "last_name_initials - #{last_name_initials} phone: #{@phone} git - #{@git}"
+			return "last_name_initials - #{last_name_initials} phone - #{@phone} git - #{@git}"
 		else 
 			return "id - #{@id} last_name_initials - #{last_name_initials} git - #{@git}"
 		end
@@ -215,4 +215,3 @@ class Student
 	end 
 
 end
-
