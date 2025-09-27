@@ -1,5 +1,5 @@
 class StudentShort
-	def initialize (id: , last_name_initials: , contact: , git: )
+	def initialize (id: , last_name_initials: , contact: nil, git: nil)
 		@id = id
 		@last_name_initials  = last_name_initials
 		@contact = contact
