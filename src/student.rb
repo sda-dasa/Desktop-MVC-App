@@ -128,37 +128,37 @@ class Student
 	end
 	
 	def to_s 
-		return "last_name: #{@last_name} first_name: #{@first_name} patronymic: #{@patronymic} phone: #{@phone} email: #{@mail} telegram: #{@tg} git: #{@git} "
+		return "last_name - #{@last_name} first_name - #{@first_name} patronymic - #{@patronymic} phone - #{@phone} email - #{@mail} telegram - #{@tg} git - #{@git} "
 	end
 
 	def short_info
 		if !@id.nil?
 		if !@telegram.nil? 
-			return "id: #{@id} last_name_initials: #{last_name_initials} telegram: #{@telegram} git: #{@git}"
+			return "id - #{@id} last_name_initials - #{last_name_initials} telegram - #{@telegram} git - #{@git}"
 		elsif !@email.nil? 
-			return "id: #{@id} last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
+			return "id - #{@id} last_name_initials - #{last_name_initials} email - #{@email} git - #{@git}"
 		elsif !@phone.nil?
-			return "id: #{@id} last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
+			return "id - #{@id} last_name_initials - #{last_name_initials} phone - #{@phone} git - #{@git}"
 		else 
-			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
+			return "id - #{@id} last_name_initials - #{last_name_initials} git - #{@git}"
 	
 		end
 
 		end
 		if !@telegram.nil?  
-			return "last_name_initials: #{last_name_initials} telegram: #{@telegram} git: #{@git}"
+			return "last_name_initials - #{last_name_initials} telegram - #{@telegram} git - #{@git}"
 		elsif !@email.nil? 
-			return "last_name_initials: #{last_name_initials} email: #{@email} git: #{@git}"
+			return "last_name_initials - #{last_name_initials} email: #{@email} git - #{@git}"
 		elsif !@phone.nil? 
-			return "last_name_initials: #{last_name_initials} phone: #{@phone} git: #{@git}"
+			return "last_name_initials - #{last_name_initials} phone: #{@phone} git - #{@git}"
 		else 
-			return "id: #{@id} last_name_initials: #{last_name_initials} git: #{@git}"
+			return "id - #{@id} last_name_initials - #{last_name_initials} git - #{@git}"
 		end
 		
 	end
 
 	def has_contact?
-		!@telegram.nil? or !@email.nil?or !@phone.nil?
+		!@telegram.nil? or !@email.nil? or !@phone.nil?
 	end
 
 	def has_git?
@@ -167,7 +167,7 @@ class Student
 
 
 	def valid_name? (value)
-		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
+		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
 		if  value.match?(regex)
 			then return true
 		end
@@ -175,7 +175,7 @@ class Student
 	end
 
 	def valid_patronymic? (value)
-		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
+		regex = /\A[A-ZА-Я]{1}[A-Za-zА-Яа-яёЁ]+\z/
 		if  value.nil? or value.match?(regex)
 			then return true
 		end
@@ -191,7 +191,7 @@ class Student
 	end		
 	
 	def valid_telegram? (value)
-		regex = /\A@?[a-zA-Z0-9_]{5,32}\z/
+		regex = /\A@[a-zA-Z0-9_]{5,32}\z/
 		if value.nil? or  value.match?(regex)
 			then return true
 		end
@@ -214,4 +214,3 @@ class Student
 		return false
 	end
 end
-
