@@ -9,7 +9,7 @@ class Student
 	
 	def self.valid_phone? (value)
 		regex = /\A8[0-9]{10}\z/
-		value_new = value
+		value_new = "#{value}"
 		if !value.nil?
 			value_new.delete! '-'
 			value_new.delete! ' '
