@@ -9,7 +9,7 @@ class StudentShort
 	attr_reader :id, :last_name_initials, :contact, :git
 
 	def self.from_student (student)	
-		new (student.id, student.last_name_initials, student.contact, student.git)
+		new(id: student.id, last_name_initials: student.last_name_initials, contact: student.contact, git: student.git)
 	end
 
 	def short_info
@@ -31,7 +31,5 @@ class StudentShort
 	def has_contact?
 		not (contact.nil? or contact.empty?)
 	end
-
-
 
 end
