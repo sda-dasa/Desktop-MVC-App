@@ -3,53 +3,45 @@ class Student
 		if valid_name? first_name  
 			@first_name = first_name
 		else 
-			rescue ArgumentError
-			puts "Имя введено не корректно!"
+			raise ArgumentError.new ("Имя введено не корректно!")
 		end
 		if valid_name? last_name  
 			@last_name = last_name
 		else 
-			rescue ArgumentError
-			puts "Фамилия введена не корректно!"
+			raise ArgumentError.new ("Фамилия введено не корректно!")
 		end
 
 		if valid_patronymic? patronymic
 			@patronymic= patronymic
 		else 
-			rescue ArgumentError
-			puts "Отчество введено не корректно!"
+			raise ArgumentError.new ("Отчество введено не корректно!")
 		end
 		if valid_phone? phone
 			then @phone = phone
 		else 
-			rescue ArgumentError
-			puts "Телефон введен не корректно!"
+			raise ArgumentError.new ("Отчество введено не корректно!")
 		end
 
 		if valid_telegram? telegram
 			then @telegram = telegram
 		else 
-			rescue ArgumentError
-			puts "tg-никнейм введен не корректно!"
+			raise ArgumentError.new ("telegram введено не корректно!")
 		end
 		if valid_email? email
 			then @email = email
 		else 
-			rescue ArgumentError
-			puts "Адрес электронной почты введен не корректно!"
+  		raise ArgumentError.new ("email введено не корректно!")
 		end
 
 		if valid_git? git
 			then @git = git
 		else 
-			rescue ArgumentError
-			puts "git введен не корректно!"
+			raise ArgumentError.new ("git введено не корректно!")
 		end
 		if id.nil? or id > 0
 			then @id = id
 		else 
-			rescue ArgumentError
-			puts "id должен быть не отрицательным числом!"
+			raise ArgumentError.new ("id введено не корректно!")
 		end
 
 	end
@@ -59,8 +51,7 @@ class Student
 		if valid_name? val
 			then @first_name = val
 		else 
-			rescue ArgumentError
-			puts "Имя введено не корректно!"
+			raise ArgumentError.new ("имя введено не корректно!")
 		end
 	end
 
@@ -68,8 +59,7 @@ class Student
 		if valid_name? val  
 			then @last_name = val
 		else 
-			rescue ArgumentError
-			puts "Фамилия введена не корректно!"
+			raise ArgumentError.new ("Фамилия введено не корректно!")
 		end
 	end
 
@@ -77,8 +67,7 @@ class Student
 		if valid_patronymic? val
 			then @patronymic = val
 		else 
-			rescue ArgumentError
-			puts "Отчество введено не корректно!"
+			raise ArgumentError.new ("Отчество введено не корректно!")
 		end
 	end
 
@@ -86,8 +75,7 @@ class Student
 		if valid_git? val
 			then @git = val
 		else 
-			rescue ArgumentError
-			puts "Гит введен не корректно!"
+			raise ArgumentError.new ("git введено не корректно!")
 		end
 	end
 
@@ -112,22 +100,19 @@ class Student
 					if valid_phone? value
 						then @phone = value 
 					else 
-						rescue ArgumentError
-						puts "Телефон введен не корректно!"
+						raise ArgumentError.new ("телефон введено не корректно!")
 					end
       				when :email 
 					if valid_email? value
 						then @email = value 
 					else 
-						rescue ArgumentError
-						puts "Почта введена не корректно!"
+						raise ArgumentError.new ("почта введено не корректно!")
 					end
 				when :telegram 
 					if valid_telegram? value
 						then @telegram = value 
 					else 
-						rescue ArgumentError
-						puts "Телеграм введен не корректно!"
+						raise ArgumentError.new ("telegram введено не корректно!")
 					end
 			end
 		end
@@ -181,7 +166,7 @@ class Student
 	end 
 
 
-	def self.valid_name? (value)
+	def valid_name? (value)
 		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
 		if  value.match?(regex)
 			then return true
@@ -189,7 +174,7 @@ class Student
 		return false
 	end
 
-	def self.valid_patronymic? (value)
+	def valid_patronymic? (value)
 		regex = /\A[A-Za-zА-Яа-яёЁ]+\z/
 		if  value.nil? or value.match?(regex)
 			then return true
@@ -197,7 +182,7 @@ class Student
 		return false
 	end
 	
-	def self.valid_phone? (value)
+	def valid_phone? (value)
 		regex = /\A\+7[0-9]{10}\z/
 		if  value.nil? or value.match?(regex)
 			then return true
@@ -205,7 +190,7 @@ class Student
 		return false
 	end		
 	
-	def self.valid_telegram? (value)
+	def valid_telegram? (value)
 		regex = /\A@?[a-zA-Z0-9_]{5,32}\z/
 		if value.nil? or  value.match?(regex)
 			then return true
@@ -213,7 +198,7 @@ class Student
 		return false
 	end
 	
-	def self.valid_email? (value)
+	def valid_email? (value)
 		regex = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
 		if  value.nil? or value.match?(regex)
 			then return true
@@ -221,7 +206,7 @@ class Student
 		return false
 	end
 
-	def self.valid_git? (value)
+	def valid_git? (value)
 		regex = %r{\Ahttps://github\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
 		if value.nil? or value.match?(regex)
 			then return true
@@ -229,3 +214,12 @@ class Student
 		return false
 	end
 end
+
+tom = Student.new(first_name: '123', last_name: 'bill', phone: '+79180123122')
+puts tom.has_contact?
+# tom.contact={phone: "89180123456"}
+puts tom
+tom.short_info
+# tom.contact= {phone: "+123123123123", telegram: "@new_tom_tg", git:"put"}
+tom.contact
+puts tom.git
