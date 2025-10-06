@@ -49,50 +49,12 @@ class Student
 
 
 	def initialize (first_name: , last_name: , patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil, id: nil) 
-		if self.class.valid_name? first_name  
-			@first_name = first_name
-		else 
-			raise ArgumentError.new ("Имя введено не корректно!")
-		end
-		if self.class.valid_name? last_name  
-			@last_name = last_name
-		else 
-			raise ArgumentError.new ("Фамилия введено не корректно!")
-		end
-
-		if patronymic.nil? or self.class.valid_name? patronymic
-			@patronymic= patronymic
-		else 
-			raise ArgumentError.new ("Отчество введено не корректно!")
-		end
-		if self.class.valid_phone? phone
-			then @phone = phone
-		else 
-			raise ArgumentError.new ("Телефон введен не корректно!")
-		end
-
-		if self.class.valid_telegram? telegram
-			then @telegram = telegram
-		else 
-			raise ArgumentError.new ("telegram введен не корректно!")
-		end
-		if self.class.valid_email? email
-			then @email = email
-		else 
-  		raise ArgumentError.new ("email введен не корректно!")
-		end
-
-		if self.class.valid_git? git
-			then @git = git
-		else 
-			raise ArgumentError.new ("git введено не корректно!")
-		end
-		if id.nil? or id > 0
-			then @id = id
-		else 
-			raise ArgumentError.new ("id введено не корректно!")
-		end
-
+		self.first_name = first_name
+		self.last_name = last_name
+		self.patronymic = patronymic
+		self.contact = {phone: phone, telegram: telegram, email: email}
+		self.git = git
+		@id = id		
 	end
 
 	
