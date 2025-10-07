@@ -1,4 +1,3 @@
-
 class ArrayProcessor
   
   def initialize (origin_array)
@@ -18,7 +17,7 @@ class ArrayProcessor
     return @array[i] 
   end
 
-  def get_all_elements
+  def to_a
     if @size == 0
       raise "There are no elements in the array!"
     end
@@ -45,7 +44,7 @@ class ArrayProcessor
 
   def sort (&condition)
     condition = condition ||->(arr){arr}
-    new_arr = BinTree.new(self.get_all_elements, condition).to_a
+    new_arr = BinTree.new(self.to_a, condition).to_a
   end
 
   def min_by (elements_count=1, &condition)
@@ -55,7 +54,7 @@ class ArrayProcessor
     if elements_count > self.size or elements_count < 0
       raise IndexError, "elements_count is out of range!"
     end
-    self.sort(&condition)[0..elements_count-1]
+    elements_count == 0 ? self.sort(&condition)[0] : self.sort(&condition)[0..elements_count-1]
   end
 
   
@@ -67,7 +66,7 @@ class ArrayProcessor
     condition.call(self) <=> condition.call(other) 
   end
 
-  def inject (start_memo=nil)
+  def inject (start_memo=0)
     self.each do |elem|      
       start_memo= yield(start_memo, elem)      
     end
@@ -109,6 +108,7 @@ class ArrayProcessor
   end
 
 end
+
 
 
 
