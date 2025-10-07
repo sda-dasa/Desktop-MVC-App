@@ -1,4 +1,3 @@
-require_relative 'student_tree.rb'
 
 class ArrayProcessor
   
@@ -110,4 +109,79 @@ class ArrayProcessor
   end
 
 end
+
+
+
+class BinTree
+  attr_reader :root, :size
+  
+  def initialize(array, condition)
+    @root = nil
+    @size = 0
+    @condition = condition
+    
+    array.each { |element| add(element) } unless array.empty?
+  end
+  
+  def add(value)
+    new_node = Node.new(value)
+    
+    if @root.nil?
+      @root = new_node
+    else
+      add_node(@root, new_node)
+    end
+    
+    @size += 1
+  end
+  
+  
+  def to_a
+    result = []
+    traversal(@root, result)
+    result
+  end
+  
+  private
+  
+  def add_node(current, new_node)
+    comparison = @condition.call(new_node.value) <=> @condition.call(current.value)
+    
+    if comparison < 0
+      if current.left.nil?
+        current.left = new_node
+      else
+        add_node(current.left, new_node)
+      end
+    else
+      if current.right.nil?
+        current.right = new_node
+      else
+        add_node(current.right, new_node)
+      end
+    end
+  end
+  
+  def traversal(node, result)
+    return if node.nil?
+    
+    traversal(node.left, result)
+    result << node.value
+    traversal(node.right, result)
+  end  
+
+
+
+  class Node
+    attr_accessor :value, :left, :right
+    
+    def initialize(value)
+      @value = value
+      @left = nil
+      @right = nil
+    end
+  end
+  
+end
+
 
