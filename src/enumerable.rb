@@ -54,7 +54,7 @@ class ArrayProcessor
     if elements_count > self.size or elements_count < 0
       raise IndexError, "elements_count is out of range!"
     end
-    elements_count == 0 ? self.sort(&condition)[0] : self.sort(&condition)[0..elements_count-1]
+    elements_count == 1 ? self.sort(&condition)[0] : self.sort(&condition)[0..elements_count-1]
   end
 
   
