@@ -16,8 +16,7 @@ class StudentTree < Enumerable
       add_node(@root, new_node)
     end    
     @size += 1
-  end
-    
+  end    
     
   def each(node=@root, &block)
     return if node.nil?
