@@ -1,4 +1,5 @@
-class StudentTree < Enumerable
+class StudentTree
+  include Enumerable
   attr_reader :size
   
   def initialize(array=[])
@@ -16,14 +17,20 @@ class StudentTree < Enumerable
       add_node(@root, new_node)
     end    
     @size += 1
-  end    
-    
+  end
+  
   def each(node=@root, &block)
     return if node.nil?
     
     each(node.left, &block)
     yield(node.value)
     each(node.right, &block)
+  end
+
+  def to_a
+    result = []
+    self.each(@root){|item| result.append(item)}
+    result
   end
 
   def find    
@@ -65,6 +72,7 @@ class StudentTree < Enumerable
     end
   end
 
+
   def map
     result = StudentTree.new()
     self.each do |item|
@@ -80,7 +88,7 @@ class StudentTree < Enumerable
     end
     return result
   end
-  
+
 
   private
   
@@ -112,3 +120,4 @@ class StudentTree < Enumerable
   end
   
 end
+
