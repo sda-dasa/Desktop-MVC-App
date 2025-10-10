@@ -1,4 +1,3 @@
-
 class StudentTree < Enumerable
   attr_reader :size
   
@@ -25,12 +24,6 @@ class StudentTree < Enumerable
     each(node.left, &block)
     yield(node.value)
     each(node.right, &block)
-  end
-
-  def to_a
-    result = []
-    self.each(@root){|item| result.append(item)}
-    result
   end
 
   def find    
