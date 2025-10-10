@@ -81,7 +81,6 @@ class StudentTree < Enumerable
     return result
   end
 
-
   private
   
   def add_node(current, new_node)   
