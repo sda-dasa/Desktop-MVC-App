@@ -1,4 +1,7 @@
-class Student < Comparable
+class Student
+
+	include Comparable
+
 	def self.valid_name? (value)
 		regex = /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
 		if  !value.nil? and value.match?(regex)
