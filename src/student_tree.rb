@@ -1,5 +1,3 @@
-require_relative 'student.rb'
-
 
 class StudentTree < Enumerable
   attr_reader :size
@@ -122,26 +120,3 @@ class StudentTree < Enumerable
   end
   
 end
-
-
-
-# probe_array = [
-#   Student.new(first_name: "Иван", last_name: "Синицин", patronymic: "Геннадьевич"),
-#   Student.new(first_name: "Александра", last_name: "Анохина", patronymic: "Васильевна"),
-#   Student.new(first_name: "Геннадий", last_name: "Горохов", patronymic: "Александрович"),
-#   Student.new(first_name: "Светлана", last_name: "Ковалева"),
-#   Student.new(first_name: "Мария", last_name: "Пак", patronymic: "Федоровна"),
-#   Student.new(first_name: "Анастасия", last_name: "Токарева"),
-#   Student.new(first_name: "Михаил", last_name: "Кузнецкий")
-# ]
-
-# new_tree = StudentTree.new(probe_array)
-# new_tree.each {|value| puts "#{value.last_name}"}
-# puts new_tree.to_a
-# new_tree.select{|item| item.patronymic.nil?}.each{|value| puts "#{value.last_name}"}
-# puts new_tree.count{|item| item.first_name[0] =="А"}
-# puts new_tree.select{|item| item.patronymic.nil?}.count{|item| item.first_name[0] =="А"}
-# new_tree.map{|item| item.patronymic.nil? ? 0 : 1}.each{|value| puts "#{value}"}
-# new_tree.remove{|item| item.last_name[0]=="К"}
-# puts new_tree.size
-# puts new_tree
