@@ -80,6 +80,7 @@ class StudentTree < Enumerable
     end
     return result
   end
+  
 
   private
   
