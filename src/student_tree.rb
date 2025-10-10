@@ -65,7 +65,6 @@ class StudentTree < Enumerable
     end
   end
 
-
   def map
     result = StudentTree.new()
     self.each do |item|
