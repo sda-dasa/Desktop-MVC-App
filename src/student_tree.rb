@@ -17,8 +17,7 @@ class StudentTree < Enumerable
     end    
     @size += 1
   end
-  
-  
+    
   def each(node=@root, &block)
     return if node.nil?
     
