@@ -1,5 +1,7 @@
 class StudentTree
+
   include Enumerable
+  
   attr_reader :size
   
   def initialize(array=[])
