@@ -4,7 +4,7 @@ class Student
   private
 
   def self.validate_field(value)
-    return true if value.nil?  value.empty?
+    return true if value.nil? or value.empty?
     yield(value)
   end
 
@@ -13,28 +13,51 @@ class Student
   TELEGRAM_REGEX= /\A@[a-zA-Z0-9_]{5,32}\z/
   EMAIL_REGEX= /\A[\w+\-.\+]+@[a-z\d\-]+(\.[a-z]+)+\z/i
   GIT_REGEX= %r{\Ahttps://git(hub)?(lab)?\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
+
+  def valid_and_set(attribute, value, field_name, required: true)
+      if value.nil? && !required
+          instance_variable_set("@#{attribute}", value)
+      elsif value && yield(value)
+          instance_variable_set("@#{attribute}", value)
+      else
+          raise ArgumentError, "Incorrect #{field_name} entry"
+      end
+  end
+
+  def set_contact_values(phone:, telegram:, email:)
+    valid_and_set(:phone, phone, "phone", required: false) { |elem| self.class.valid_phone?(elem) }
+    valid_and_set(:telegram, telegram, "telegram", required: false) { |elem| self.class.valid_telegram?(elem) }
+    valid_and_set(:email, email, "email", required: false) { |elem| self.class.valid_email?(elem) }
+  end
   
+  def get_main_contact
+    [
+          { type: 'telegram', value: @telegram },
+          { type: 'email', value: @email },
+          { type: 'phone', value: @phone }
+    ].find { |contact| contact[:value] && !contact[:value].empty? }
+  end
 
   public 
 
 	def self.valid_name? (value)
-		validate_field(value){|elem| elem.match?(NAME_REGEX)}
+		self.class.validate_field(value){|elem| elem.match?(NAME_REGEX)}
 	end
 	
 	def self.valid_phone? (value)
-		validate_field(value){|elem| elem.match?(PHONE_REGEX)}
+		self.class.validate_field(value){|elem| elem.match?(PHONE_REGEX)}
 	end		
 	
 	def self.valid_telegram? (value)
-		validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
+		self.class.validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
 	end
 	
 	def self.valid_email? (value)
-		validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
+		self.class.validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
   end
 
 	def self.valid_git? (value)
-		validate_field(value){|elem| elem.match?(GIT_REGEX)}
+		self.class.validate_field(value){|elem| elem.match?(GIT_REGEX)}
 	end
 
 
@@ -48,76 +71,41 @@ class Student
 
 	
 	def first_name=(val)
-		if self.class.valid_name? val
-			then @first_name = val
-		else 
-			raise ArgumentError.new ("имя введено не корректно!")
-		end
+		valid_and_set(:first_name, val, 'name') {|elem| self.class.valid_name?(elem)}
 	end
 
 	def last_name=(val)
-		if self.class.valid_name? val  
-			then @last_name = val
-		else 
-			raise ArgumentError.new ("Фамилия введена не корректно!")
-		end
+		valid_and_set(:last_name, val, 'last name') {|elem| self.class.valid_name?(elem)}
 	end
 
 	def patronymic=(val)
-		if self.class.valid_name? val
-			then @patronymic = val
-		else 
-			raise ArgumentError.new ("Отчество введено не корректно!")
-		end
+		valid_and_set(:patronymic, val, 'patronymic', required: false) {|elem| self.class.valid_name?(elem)}
 	end
 
 	def git=(val)
-		if self.class.valid_git? val
-			then @git = val
-		else 
-			raise ArgumentError.new ("git введен не корректно!")
-		end
+		valid_and_set(:git, val, 'Git', required: false) {|elem| self.class.valid_git?(elem)}
+	end
+
+
+  def contact=(contacts)
+		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless hash.is_a?(Hash)
+    raise ArgumentError, "Expected 3 contacts, given #{contacts.length}" if contacts.length != 3 
+
+    valid_keys = [:phone, :telegram, :email]
+    invalid_keys = contacts.keys - valid_keys
+        
+    raise ArgumentError, "Unknown type of contact #{invalid_keys.first}" if !invalid_keys.empty?
+        
+    set_contact_values(phone: contacts[:phone], telegram: contacts[:telegram], email: contacts[:email])
 	end
 
 
 	def contact
-		if !@telegram.nil? 
-			return "telegram - #{@telegram}"
-		elsif !@email.nil? 
-			return "email - #{@email}"
-		elsif !@phone.nil? 
-			return "phone - #{@phone}"
-		else 
-			puts "Контакты не указаны"
-			return nil
-		end	
+    existing_contact = get_main_contact
+    return nil unless existing_contact
+    "#{existing_contact[:type]} - #{existing_contact[:value]}"
 	end
-
-	def contact=(contacts)
-		contacts.each do |key, value|
-      			case key
-      				when :phone 
-					if self.class.valid_phone? value
-						then @phone = value 
-					else 
-						raise ArgumentError.new ("телефон введен не корректно!")
-					end
-      				when :email 
-					if self.class.valid_email? value
-						then @email = value 
-					else 
-						raise ArgumentError.new ("почта введена не корректно!")
-					end
-				when :telegram 
-					if self.class.valid_telegram? value
-						then @telegram = value 
-					else 
-						raise ArgumentError.new ("telegram введен не корректно!")
-					end
-			end
-		end
-	end
-
+	
 	attr_reader :id, :first_name, :last_name, :patronymic, :git
 
 	def last_name_initials
