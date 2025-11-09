@@ -1,47 +1,40 @@
 class Student
 	include Comparable
-  
+
+  private
+
+  def self.validate_field(value)
+    return true if value.nil?  value.empty?
+    yield(value)
+  end
+
   NAME_REGEX= /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
   PHONE_REGEX= /^(\+7|8)?[\s\-\(]?(\d{3})[\s\-\)]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/
   TELEGRAM_REGEX= /\A@[a-zA-Z0-9_]{5,32}\z/
   EMAIL_REGEX= /\A[\w+\-.\+]+@[a-z\d\-]+(\.[a-z]+)+\z/i
   GIT_REGEX= %r{\Ahttps://git(hub)?(lab)?\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
+  
 
-
+  public 
 
 	def self.valid_name? (value)
-		if !value.nil? and value.match?(NAME_REGEX)
-			then return true
-		end
-		return false
+		validate_field(value){|elem| elem.match?(NAME_REGEX)}
 	end
 	
 	def self.valid_phone? (value)
-		if  value.nil? or value_new.match?(PHONE_REGEX)
-			then return true
-		end
-		return false
+		validate_field(value){|elem| elem.match?(PHONE_REGEX)}
 	end		
 	
 	def self.valid_telegram? (value)
-		if value.nil? or  value.match?(TELEGRAM_REGEX)
-			then return true
-		end
-		return false
+		validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
 	end
 	
 	def self.valid_email? (value)
-		if  value.nil? or value.match?(EMAIL_REGEX)
-			then return true
-		end
-		return false
-	end
+		validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
+  end
 
 	def self.valid_git? (value)
-		if value.nil? or value.match?(GIT_REGEX)
-			then return true
-		end
-		return false
+		validate_field(value){|elem| elem.match?(GIT_REGEX)}
 	end
 
 
