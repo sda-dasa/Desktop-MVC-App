@@ -1,50 +1,44 @@
 class Student
-
 	include Comparable
+  
+  NAME_REGEX= /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
+  PHONE_REGEX= /^(\+7|8)?[\s\-\(]?(\d{3})[\s\-\)]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/
+  TELEGRAM_REGEX= /\A@[a-zA-Z0-9_]{5,32}\z/
+  EMAIL_REGEX= /\A[\w+\-.\+]+@[a-z\d\-]+(\.[a-z]+)+\z/i
+  GIT_REGEX= %r{\Ahttps://git(hub)?(lab)?\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
+
+
 
 	def self.valid_name? (value)
-		regex = /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
-		if  !value.nil? and value.match?(regex)
+		if !value.nil? and value.match?(NAME_REGEX)
 			then return true
 		end
 		return false
 	end
 	
 	def self.valid_phone? (value)
-		regex = /\A8[0-9]{10}\z/
-		value_new = "#{value}"
-		if !value.nil?
-			value_new.delete! '-'
-			value_new.delete! ' '
-			value_new.delete! '()'
-			value_new.delete! '+'
-			value_new = value_new.tr('7', '8')
-		end
-		if  value.nil? or value_new.match?(regex)
+		if  value.nil? or value_new.match?(PHONE_REGEX)
 			then return true
 		end
 		return false
 	end		
 	
 	def self.valid_telegram? (value)
-		regex = /\A@[a-zA-Z0-9_]{5,32}\z/
-		if value.nil? or  value.match?(regex)
+		if value.nil? or  value.match?(TELEGRAM_REGEX)
 			then return true
 		end
 		return false
 	end
 	
 	def self.valid_email? (value)
-		regex = /\A[\w+\-.\+]+@[a-z\d\-]+(\.[a-z]+)+\z/i
-		if  value.nil? or value.match?(regex)
+		if  value.nil? or value.match?(EMAIL_REGEX)
 			then return true
 		end
 		return false
 	end
 
 	def self.valid_git? (value)
-		regex = %r{\Ahttps://git(hub)?(lab)?\.com/[a-zA-Z0-9_-]{1,39}(/[a-zA-Z0-9_-]{1,100})?/?\z}
-		if value.nil? or value.match?(regex)
+		if value.nil? or value.match?(GIT_REGEX)
 			then return true
 		end
 		return false
@@ -52,50 +46,11 @@ class Student
 
 
 	def initialize (first_name: , last_name: , patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil, id: nil) 
-		if self.class.valid_name? first_name  
-			@first_name = first_name
-		else 
-			raise ArgumentError.new ("Имя введено не корректно!")
-		end
-		if self.class.valid_name? last_name  
-			@last_name = last_name
-		else 
-			raise ArgumentError.new ("Фамилия введено не корректно!")
-		end
-
-		if patronymic.nil? or self.class.valid_name? patronymic
-			@patronymic= patronymic
-		else 
-			raise ArgumentError.new ("Отчество введено не корректно!")
-		end
-		if self.class.valid_phone? phone
-			then @phone = phone
-		else 
-			raise ArgumentError.new ("Телефон введен не корректно!")
-		end
-
-		if self.class.valid_telegram? telegram
-			then @telegram = telegram
-		else 
-			raise ArgumentError.new ("telegram введен не корректно!")
-		end
-		if self.class.valid_email? email
-			then @email = email
-		else 
-  		raise ArgumentError.new ("email введен не корректно!")
-		end
-
-		if self.class.valid_git? git
-			then @git = git
-		else 
-			raise ArgumentError.new ("git введено не корректно!")
-		end
-		if id.nil? or id > 0
-			then @id = id
-		else 
-			raise ArgumentError.new ("id введено не корректно!")
-		end
-
+		self.first_name= first_name
+		self.last_name= last_name
+		self.patronymic= patronymic
+		self.contact= {phone: phone, telegram: telegram, email: email}
+		self.git= git
 	end
 
 	
@@ -111,7 +66,7 @@ class Student
 		if self.class.valid_name? val  
 			then @last_name = val
 		else 
-			raise ArgumentError.new ("Фамилия введено не корректно!")
+			raise ArgumentError.new ("Фамилия введена не корректно!")
 		end
 	end
 
@@ -127,7 +82,7 @@ class Student
 		if self.class.valid_git? val
 			then @git = val
 		else 
-			raise ArgumentError.new ("git введено не корректно!")
+			raise ArgumentError.new ("git введен не корректно!")
 		end
 	end
 
@@ -152,19 +107,19 @@ class Student
 					if self.class.valid_phone? value
 						then @phone = value 
 					else 
-						raise ArgumentError.new ("телефон введено не корректно!")
+						raise ArgumentError.new ("телефон введен не корректно!")
 					end
       				when :email 
 					if self.class.valid_email? value
 						then @email = value 
 					else 
-						raise ArgumentError.new ("почта введено не корректно!")
+						raise ArgumentError.new ("почта введена не корректно!")
 					end
 				when :telegram 
 					if self.class.valid_telegram? value
 						then @telegram = value 
 					else 
-						raise ArgumentError.new ("telegram введено не корректно!")
+						raise ArgumentError.new ("telegram введен не корректно!")
 					end
 			end
 		end
@@ -222,10 +177,7 @@ class Student
       raise ArgumentException, "Could not compare ArrayProcessor with #{nil ? other.nil? : other.class}"
     end
     self.last_name <=> other.last_name
-  end
+  end	
 
-	def ==(other)
-		return @id==other.id && @last_name==other.last_name && @first_name==other.first_name && @patronymic==other.patronymic && @git==other.git
-	end
 
 end
