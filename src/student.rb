@@ -40,7 +40,7 @@ class Student < StudentBase
     raise ArgumentError, "Unknown type of contact #{invalid_keys.first}" if !invalid_keys.empty?
         
     set_contact_values(phone: contacts[:phone], telegram: contacts[:telegram], email: contacts[:email])
-	end
+  end
 
   def contact=(contacts)
 		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless contacts.is_a?(Hash)
@@ -52,19 +52,19 @@ class Student < StudentBase
     raise ArgumentError, "Unknown type of contact #{invalid_keys.first}" if !invalid_keys.empty?
         
     set_contact_values(phone: contacts[:phone], telegram: contacts[:telegram], email: contacts[:email])
-	end
+  end
 
   def contact
     existing_contact = get_main_contact
     return nil unless existing_contact
     "#{existing_contact[:type]} - #{existing_contact[:value]}"
-	end 
+  end 
 
   def last_name_initials
 		"#{@last_name} #{@first_name[0]}." if patronymic.nil?
     
 		"#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
-	end
+  end
 
   def <=>(other)
     if other.nil? or other.class != Student
@@ -85,7 +85,7 @@ class Student < StudentBase
 
   def self.valid_name? (value)
 		self.validate_field(value){|elem| elem.match?(NAME_REGEX)}
-	end
+  end
 	
 	def self.valid_phone? (value)
 		self.validate_field(value){|elem| elem.match?(PHONE_REGEX)}
@@ -94,10 +94,10 @@ class Student < StudentBase
 	def self.valid_telegram? (value)
 		self.validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
 	end
-	
+
 	def self.valid_email? (value)
 		self.validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
-  end
+	end
 
 	def self.valid_git? (value)
 		self.validate_field(value){|elem| elem.match?(GIT_REGEX)}
