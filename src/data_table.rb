@@ -34,8 +34,8 @@ class DataTable
     if row < 0  or row >= rows_count
       raise IndexError, " row index: #{row}"
     end
-    if col < 0  or col >= @data[row].length
-        raise IndexError, "Incorrect cloumn index #{col}"
+    if col < 0  or col >= columns_count
+        raise IndexError, "Incorrect сolumn index #{col}"
     end
   end
 

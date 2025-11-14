@@ -18,25 +18,7 @@ class DataList
     end
 
     def get_data
-      data = []
-        
-      @elements.each_with_index do |student, index|
-        row = [
-          index + 1,
-          student.last_name_initials,
-          student.contact || "нет",
-          student.git || "нет"
-      ]
-      data << row
-      end
-    end
-
-    def student_info student
-      raise NotImplementedError, "Method student_info must be implemented in child class"
-    end
-
-    def create_data_table data
-      raise NotImplementedError, "Method student_info must be implemented in child class"
+        raise NotImplementedError, "Method must be implemented in child class"
     end
 
     def clear_selected
