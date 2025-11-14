@@ -2,7 +2,7 @@ require_relative 'data_table.rb'
 require_relative 'data_list.rb'
 
 class DataListStudentShort < DataList
-    def get_names
+    def student_attributes
         ["№ по порядку", "ФИО", "Контакт", "Git"]
     end
     

@@ -14,7 +14,13 @@ class DataList
     end
 
     def get_names
-        raise NotImplementedError, "Method get_names must be implemented in child class"
+        attributes_info = []
+        attributes_info << student_attributes
+        return attributes_info
+    end
+
+    def student_attributes
+        raise NotImplementedError, "Method must be implemented in child class"
     end
 
     def get_data
