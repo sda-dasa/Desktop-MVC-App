@@ -26,9 +26,8 @@ class Student < StudentBase
     telegram: TELEGRAM_REGEX,
     email: EMAIL_REGEX,
     git: GIT_REGEX
-  }.each do |field_name, regex|
-      block=elem.match?(regex)
-      attr_validate field_name, regex: regex, with: block
+  }.each do |field_name, regex| 
+      attr_validate field_name, regex: regex
   end
 
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
@@ -88,36 +87,5 @@ class Student < StudentBase
     result += "git - #{git}" if has_git?
   end
 
-
-  # def self.valid_name? (value)
-	# 	self.validate_field(value){|elem| elem.match?(NAME_REGEX)}
-  # end
-	
-	# def self.valid_phone? (value)
-	# 	self.validate_field(value){|elem| elem.match?(PHONE_REGEX)}
-	# end		
-	
-	# def self.valid_telegram? (value)
-	# 	self.validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
-	# end
-
-	# def self.valid_email? (value)
-	# 	self.validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
-	# end
-
-	# def self.valid_git? (value)
-	# 	self.validate_field(value){|elem| elem.match?(GIT_REGEX)}
-	# end   
-
-  private 
-  
-  # def self.validate_field(value)
-  #   return true if value.nil? or value.empty?
-  #   yield(value)
-  # end
-
 end
 
-
-
-tom = Student.new(first_name: 'Том', last_name: "Зануда", phone: '+79094498316')
