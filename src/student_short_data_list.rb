@@ -6,19 +6,12 @@ class DataListStudentShort < DataList
         ["№ по порядку", "ФИО", "Контакт", "Git"]
     end
     
-    def get_data 
-        data = []
-
-        @elements.each_with_index do |student, index|
-            row = [
-                index + 1,
-                student.last_name_initials,
-                student.contact || "none",
-                student.git || "none"
-            ]       
-            data << row
-        end
-        DataTable.new data
+    def student_info student
+        [student.last_name_initials, student.contact || 'нет', 
+        student.git || 'нет']
     end
 
+    def create_data_table
+        DataTable.new(data)
+    end    
 end
