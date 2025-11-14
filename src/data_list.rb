@@ -1,6 +1,6 @@
 class DataList
-    def initialize(elements)
-        @elements = elements
+    def initialize(array)
+        replace(array)
         @selected = []
     end
 
@@ -14,13 +14,9 @@ class DataList
     end
 
     def get_names
-        attributes_info = []
-        attributes_info << student_attributes
-        return attributes_info
-    end
-
-    def student_attributes
-        raise NotImplementedError, "Method must be implemented in child class"
+        attributes = []
+        attributes << attributes_info
+        return attributes
     end
 
     def get_data
@@ -28,7 +24,7 @@ class DataList
 
         @elements.each_with_index do |elem, index|
             row = [index + 1]
-            row.concat(student_info(elem))
+            row.concat(fields_info(elem))
             data<<row          
         end
 
@@ -36,23 +32,35 @@ class DataList
   
     end
 
-    def student_info student
-      raise NotImplementedError, "Method student_info must be implemented in child class"
-    end
-
-    def create_data_table data
-      raise NotImplementedError, "Method student_info must be implemented in child class"
-    end
-    
     def clear_selected
         @selected.clear
+    end
+
+    def replace (array)
+        @elements = array.dup
     end
 
     private
 
     def validate_index(index)
         if index < 0 || index >= @elements.length
-            raise IndexError, "Некорректный индекс: #{index}"
+            raise IndexError, "Incorrect index: #{index}"
         end
     end
+
+    private
+    
+    def fields_info student
+      raise NotImplementedError, "Method must be implemented in child class"
+    end
+
+    def create_data_table data
+      raise NotImplementedError, "Method must be implemented in child class"
+    end    
+    
+    def attributes_info
+        raise NotImplementedError, "Method must be implemented in child class"
+    end
+
+
 end
