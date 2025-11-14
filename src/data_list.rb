@@ -18,9 +18,9 @@ class DataList
     end
 
     def get_data
-        raise NotImplementedError, "Method must be implemented in child class"
-    end
-
+        raise NotImplementedError, "Method get_names must be implemented in child class"
+    end 
+    
     def clear_selected
         @selected.clear
     end
