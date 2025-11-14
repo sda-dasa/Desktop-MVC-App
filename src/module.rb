@@ -10,4 +10,12 @@ module ValidatedAttributes
       instance_variable_set("@#{attribute}", value)
     end
   end
+
+  def attr_validate (attribute, regex:, with:)
+    define_singleton_method("valid_#{attribute}?") do |value|
+      return true if value.nil? or value.empty?
+      self.sent(with, value)
+    end    
+  end
+
 end

@@ -20,14 +20,24 @@ class Student < StudentBase
   attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
   attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
 
+  {
+    name: NAME_REGEX,
+    phone: PHONE_REGEX,
+    telegram: TELEGRAM_REGEX,
+    email: EMAIL_REGEX,
+    git: GIT_REGEX
+  }.each do |field_name, regex|
+      block=elem.match?(regex)
+      attr_validate field_name, regex: regex, with: block
+  end
+
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
     raise ArgumentError, "Incorrect git entry" if !git.nil? && !self.class.valid_git?(git)
     super(id: id, git: git)
-    self.last_name = last_name
-    self.first_name = first_name
-    self.patronymic = patronymic
-
-    set_contact_values(phone: phone, telegram: telegram, email: email)
+    self.last_name= last_name
+    self.first_name= first_name
+    self.patronymic= patronymic
+    self.contact= ({phone: phone, telegram: telegram, email: email})
   end
 
   def contact=(contacts)
@@ -39,23 +49,19 @@ class Student < StudentBase
         
     raise ArgumentError, "Unknown type of contact #{invalid_keys.first}" if !invalid_keys.empty?
         
-    set_contact_values(phone: contacts[:phone], telegram: contacts[:telegram], email: contacts[:email])
-  end
-
-  def contact=(contacts)
-		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless contacts.is_a?(Hash)
-    raise ArgumentError, "Expected 3 contacts, given #{contacts.length}" if contacts.length != 3 
-
-    valid_keys = [:phone, :telegram, :email]
-    invalid_keys = contacts.keys - valid_keys
-        
-    raise ArgumentError, "Unknown type of contact #{invalid_keys.first}" if !invalid_keys.empty?
-        
-    set_contact_values(phone: contacts[:phone], telegram: contacts[:telegram], email: contacts[:email])
-  end
+    self.phone = contacts[:phone]
+    self.telegram = contacts[:telegram]
+    self.email = contacts[:email]
+  end  
 
   def contact
-    existing_contact = get_main_contact
+
+    existing_contact=[
+      { type: 'telegram', value: @telegram },
+      { type: 'email', value: @email },
+      { type: 'phone', value: @phone }
+    ].find { |contact| contact[:value] && !contact[:value].empty? }
+
     return nil unless existing_contact
     "#{existing_contact[:type]} - #{existing_contact[:value]}"
   end 
@@ -83,46 +89,35 @@ class Student < StudentBase
   end
 
 
-  def self.valid_name? (value)
-		self.validate_field(value){|elem| elem.match?(NAME_REGEX)}
-  end
+  # def self.valid_name? (value)
+	# 	self.validate_field(value){|elem| elem.match?(NAME_REGEX)}
+  # end
 	
-	def self.valid_phone? (value)
-		self.validate_field(value){|elem| elem.match?(PHONE_REGEX)}
-	end		
+	# def self.valid_phone? (value)
+	# 	self.validate_field(value){|elem| elem.match?(PHONE_REGEX)}
+	# end		
 	
-	def self.valid_telegram? (value)
-		self.validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
-	end
+	# def self.valid_telegram? (value)
+	# 	self.validate_field(value){|elem| elem.match?(TELEGRAM_REGEX)}
+	# end
 
-	def self.valid_email? (value)
-		self.validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
-	end
+	# def self.valid_email? (value)
+	# 	self.validate_field(value){|elem| elem.match?(EMAIL_REGEX)}
+	# end
 
-	def self.valid_git? (value)
-		self.validate_field(value){|elem| elem.match?(GIT_REGEX)}
-	end
-   
+	# def self.valid_git? (value)
+	# 	self.validate_field(value){|elem| elem.match?(GIT_REGEX)}
+	# end   
 
   private 
   
-  def self.validate_field(value)
-    return true if value.nil? or value.empty?
-    yield(value)
-  end
-
-  def get_main_contact
-    [
-      { type: 'telegram', value: @telegram },
-      { type: 'email', value: @email },
-      { type: 'phone', value: @phone }
-    ].find { |contact| contact[:value] && !contact[:value].empty? }
-  end  
-
-  def set_contact_values(phone:, telegram:, email:)
-    self.phone = phone
-    self.telegram = telegram
-    self.email = email
-  end
+  # def self.validate_field(value)
+  #   return true if value.nil? or value.empty?
+  #   yield(value)
+  # end
 
 end
+
+
+
+tom = Student.new(first_name: 'Том', last_name: "Зануда", phone: '+79094498316')
