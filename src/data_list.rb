@@ -14,8 +14,7 @@ class DataList
     end
 
     def get_names
-        attributes = []
-        attributes << attributes_info
+        attributes = attributes_info.dup
         return attributes
     end
 
