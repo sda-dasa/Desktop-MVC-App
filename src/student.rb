@@ -16,7 +16,8 @@ class Student < StudentBase
   attr_validate_writer :first_name, field_name: "first_name", required: true, with: :valid_name?
   attr_validate_writer :patronymic, field_name: "patronymic", required: false, with: :valid_name?
   attr_validate_writer :git, field_name: "git", required: false, with: :valid_git?
-  
+    
+
   
   private
   attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
