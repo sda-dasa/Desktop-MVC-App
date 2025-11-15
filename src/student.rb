@@ -18,7 +18,7 @@ class Student < StudentBase
   attr_validate_writer :git, field_name: "git", required: false, with: :valid_git?
     
 
-  
+
   private
   attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
   attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
@@ -70,10 +70,11 @@ class Student < StudentBase
     "#{existing_contact[:type]} - #{existing_contact[:value]}"
   end 
 
-  def last_name_initials
-		"#{@last_name} #{@first_name[0]}." if patronymic.nil?
-    
-		"#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
+  def last_name_initials		
+    if patronymic.nil?
+      "#{@last_name} #{@first_name[0]}."
+    end
+    "#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
   end
 
   def <=>(other)
