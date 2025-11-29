@@ -122,9 +122,9 @@ class Student < StudentBase
   # end
   # 
   private
-  attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
-  attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
-  attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
+  # attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
+  # attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
+  # attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
 
 
 end
