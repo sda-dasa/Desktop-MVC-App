@@ -14,7 +14,10 @@ class DataList
     end
 
     def get_names
-        attributes = attributes_info.dup
+        attributes = ["№ по порядку"]
+        attributes_info.each do |elem|
+            attributes << elem 
+        end
         return attributes
     end
 

@@ -19,6 +19,23 @@ class DataTable
     @data.length
   end
 
+  def safe_return(value)
+    deep_copy(value)
+  end
+
+  def deep_copy(obj)
+    case obj
+    when Array
+        obj.map { |v| deep_copy(v) }
+    when Hash
+        obj.transform_values { |v| deep_copy(v) }
+    when String
+        obj.dup
+    else
+        obj
+    end
+  end
+
   private
 
   def validate_data(data)
