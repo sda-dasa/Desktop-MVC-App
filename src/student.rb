@@ -2,7 +2,7 @@ require_relative 'student_base.rb'
 require_relative 'module.rb'
 
 class Student < StudentBase
-  
+
   include Comparable
   extend ValidatedAttributes
   attr_reader :last_name, :first_name, :patronymic
@@ -43,6 +43,7 @@ class Student < StudentBase
     self.contact= {phone: phone, telegram: telegram, email: email}
   end
 
+  
   # def self.init_with_hash(student)
   #   raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
   #   raise ArgumentError, "Expected at least 2 keys, given #{student.length}" unless student.length >= 2
