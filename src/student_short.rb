@@ -16,6 +16,7 @@ class StudentShort < StudentBase
     new( id: student.id, last_name_initials: student.last_name_initials, contact: student.contact, git: student.git)
   end
   
+  
   def to_s
     "
       id - #{id}
