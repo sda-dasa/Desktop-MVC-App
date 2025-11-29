@@ -18,21 +18,21 @@ class Student < StudentBase
   attr_validate_writer :patronymic, field_name: "patronymic", required: false, with: :valid_name?
   attr_validate_writer :git, field_name: "git", required: false, with: :valid_git?
     
-  private
-  attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
-  attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
-  attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
-
-  public 
-  {
-    name: NAME_REGEX,
-    phone: PHONE_REGEX,
-    telegram: TELEGRAM_REGEX,
-    email: EMAIL_REGEX,
-    git: GIT_REGEX
-  }.each do |field_name, regex| 
-      attr_validate field_name, regex: regex
-  end
+  # public 
+  # {
+  #   name: NAME_REGEX,
+  #   phone: PHONE_REGEX,
+  #   telegram: TELEGRAM_REGEX,
+  #   email: EMAIL_REGEX,
+  #   git: GIT_REGEX
+  # }.each do |field_name, regex| 
+  #     attr_validate field_name, regex: regex
+  # end
+  attr_validate :name, regex: NAME_REGEX
+  attr_validate :phone, regex: PHONE_REGEX
+  attr_validate :telegram, regex: TELEGRAM_REGEX
+  attr_validate :email, regex: EMAIL_REGEX
+  attr_validate :git, regex: GIT_REGEX
 
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
     raise ArgumentError, "Incorrect git entry" unless git.nil? or self.class.valid_git?(git)
@@ -121,5 +121,10 @@ class Student < StudentBase
   # def to_h
   #   {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
   # end
+  private
+  attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
+  attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
+  attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
+
 
 end
