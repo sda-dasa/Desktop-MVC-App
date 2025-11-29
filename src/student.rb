@@ -34,12 +34,37 @@ class Student < StudentBase
   end
 
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
-    raise ArgumentError, "Incorrect git entry" if !git.nil? && !self.class.valid_git?(git)
-    super(id: id, git: git)
+    raise ArgumentError, "Incorrect git entry" unless git.nil? or self.class.valid_git?(git)
+    super(id: id.to_i, git: git)
     self.last_name= last_name
     self.first_name= first_name
     self.patronymic= patronymic
     self.contact= {phone: phone, telegram: telegram, email: email}
+  end
+
+  def self.init_with_hash(student)
+    raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
+    raise ArgumentError, "Expected at least 2 keys, given #{student.length}" unless student.length >= 2
+
+    normalized = Hash[student.map{ |k, v| [k.to_sym, v] }]
+
+    valid_keys = [:last_name, :first_name, :patronymic, :phone, :telegram, :email, :git, :id]
+    invalid_keys = normalized.keys - valid_keys    
+        
+    raise ArgumentError, "Unknown type of attribute #{invalid_keys.first}" unless invalid_keys.empty? 
+
+    normalized_hash = {
+      last_name: normalized[:last_name],
+      first_name: normalized[:first_name],
+      id: normalized[:id].to_i,
+      patronymic: normalized[:patronymic],
+      phone: normalized[:phone],
+      telegram: normalized[:telegram],
+      email: normalized[:email],
+      git: normalized[:git]
+    } 
+    new(**normalized_hash)
+
   end
 
   def contact=(contacts)
@@ -70,26 +95,34 @@ class Student < StudentBase
 
   def last_name_initials		
     if patronymic.nil?
-      "#{@last_name} #{@first_name[0]}."
+      return "#{@last_name} #{@first_name[0]}."
     end
-    "#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
+    return "#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
   end
 
   def <=>(other)
     if other.nil? or other.class != Student
-      raise ArgumentException, "Could not compare ArrayProcessor with #{nil ? other.nil? : other.class}"
+      raise ArgumentError, "Could not compare Student with #{nil ? other.nil? : other.class}"
     end
     self.last_name <=> other.last_name
   end	
 
   def to_s
     result = "#{id}" 
-    result += "\nfio - #{last_name} #{first_name} #{patronymic  'нет'} "
+    result += "\nfio - #{last_name} #{first_name} #{patronymic || 'нет'} "
     result += "\nphone - #{@phone}" if @phone && !@phone.empty?
     result += "\ntelegram - #{@telegram}" if @telegram && !@telegram.empty?
     result += "\nemail - #{@email}" if @email && !@email.empty?
     result += "git - #{git}" if has_git?
+    return result
+  end
+
+  def to_h
+    {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
   end
 
 end
 
+#hash = { first_name: 'Иван', email: 'ivan.petrov@example.com'}
+# ivan = Student.new(last_name: "Иван", first_name: "Петров")
+# puts ivan.contact
