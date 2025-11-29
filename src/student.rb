@@ -121,7 +121,7 @@ class Student < StudentBase
   #   {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
   # end
   # 
-  private
+  # private
   # attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
   # attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
   # attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
