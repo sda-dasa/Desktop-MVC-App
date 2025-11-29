@@ -67,6 +67,7 @@ class Student < StudentBase
   #   new(**normalized_hash)
 
   # end
+  #
 
   def contact=(contacts)
 		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless contacts.is_a?(Hash)
