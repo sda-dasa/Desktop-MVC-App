@@ -17,6 +17,7 @@ class Student < StudentBase
   attr_validate_writer :patronymic, field_name: "patronymic", required: false, with: :valid_name?
   attr_validate_writer :git, field_name: "git", required: false, with: :valid_git?
 
+  
   attr_validate :name, regex: NAME_REGEX
   attr_validate :phone, regex: PHONE_REGEX
   attr_validate :telegram, regex: TELEGRAM_REGEX
