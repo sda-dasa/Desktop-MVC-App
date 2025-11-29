@@ -68,7 +68,6 @@ class Student < StudentBase
 
   # end
   #
-
   def contact=(contacts)
 		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless contacts.is_a?(Hash)
     raise ArgumentError, "Expected 3 contacts, given #{contacts.length}" if contacts.length != 3 
