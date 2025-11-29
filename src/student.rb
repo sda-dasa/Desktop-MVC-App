@@ -43,7 +43,7 @@ class Student < StudentBase
     self.contact= {phone: phone, telegram: telegram, email: email}
   end
 
-  
+
   # def self.init_with_hash(student)
   #   raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
   #   raise ArgumentError, "Expected at least 2 keys, given #{student.length}" unless student.length >= 2
@@ -101,12 +101,12 @@ class Student < StudentBase
     return "#{@last_name} #{@first_name[0]}. #{@patronymic[0]}."
   end
 
-  def <=>(other)
-    if other.nil? or other.class != Student
-      raise ArgumentError, "Could not compare Student with #{nil ? other.nil? : other.class}"
-    end
-    self.last_name <=> other.last_name
-  end	
+  # def <=>(other)
+  #   if other.nil? or other.class != Student
+  #     raise ArgumentError, "Could not compare Student with #{nil ? other.nil? : other.class}"
+  #   end
+  #   self.last_name <=> other.last_name
+  # end	
 
   def to_s
     result = "#{id}" 
