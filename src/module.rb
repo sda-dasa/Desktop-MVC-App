@@ -13,8 +13,7 @@ module ValidatedAttributes
 
   def attr_validate (attribute, regex:)
     define_singleton_method("valid_#{attribute}?") do |value|
-      return true if value.nil? or value.empty?
-      value.match?(regex)
+      return value.match?(regex)
     end    
   end
 
