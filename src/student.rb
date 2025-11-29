@@ -1,10 +1,11 @@
 require_relative 'student_base.rb'
 require_relative 'module.rb'
 
-class Student < StudentBase
+class Student
   # include Comparable
   extend ValidatedAttributes
   attr_reader :last_name, :first_name, :patronymic
+  attr_reader :id, :git
 
   NAME_REGEX= /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
   PHONE_REGEX= /^(\+7|8)?[\s\-\(]?(\d{3})[\s\-\)]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/
@@ -42,6 +43,20 @@ class Student < StudentBase
     self.contact= {phone: phone, telegram: telegram, email: email}
   end
 
+  def has_contact?
+    !contact.nil?
+  end
+
+  def has_git?
+    !git.nil?
+  end
+
+  def short_info
+      info = "id - #{id}, fio - #{last_name_initials}"
+      info += ", contact - #{contact}" if has_contact?
+      info += ", git - #{git}" if has_git?
+      info
+  end
 
   # def self.init_with_hash(student)
   #   raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
@@ -121,10 +136,10 @@ class Student < StudentBase
   #   {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
   # end
   # 
-  # private
-  # attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
-  # attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
-  # attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
+  private
+  attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
+  attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
+  attr_validate_writer :email, field_name: "email", required: false, with: :valid_email?
 
 
 end
