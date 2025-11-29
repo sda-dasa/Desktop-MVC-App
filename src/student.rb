@@ -1,11 +1,10 @@
-# require_relative 'student_base.rb'
+require_relative 'student_base.rb'
 require_relative 'module.rb'
 
-class Student
+class Student < StudentBase
   # include Comparable
   extend ValidatedAttributes
-  attr_reader :last_name, :first_name, :patronymic, :id, :git
-  # attr_reader :id, :git
+  attr_reader :last_name, :first_name, :patronymic
 
   NAME_REGEX= /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
   PHONE_REGEX= /^(\+7|8)?[\s\-\(]?(\d{3})[\s\-\)]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/
@@ -36,29 +35,13 @@ class Student
 
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
     raise ArgumentError, "Incorrect git entry" unless git.nil? or self.class.valid_git?(git)
-    # super(id: id.to_i, git: git)
-    self.id = id
-    self.git = git
+    super(id: id.to_i, git: git)
     self.last_name= last_name
     self.first_name= first_name
     self.patronymic= patronymic
     self.contact= {phone: phone, telegram: telegram, email: email}
   end
 
-  def has_contact?
-    !contact.nil?
-  end
-
-  def has_git?
-    !git.nil?
-  end
-
-  def short_info
-      info = "id - #{id}, fio - #{last_name_initials}"
-      info += ", contact - #{contact}" if has_contact?
-      info += ", git - #{git}" if has_git?
-      info
-  end
 
   # def self.init_with_hash(student)
   #   raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
@@ -137,7 +120,6 @@ class Student
   # def to_h
   #   {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
   # end
-  # 
   private
   attr_validate_writer :phone, field_name: "phone", required: false, with: :valid_phone?
   attr_validate_writer :telegram, field_name: "telegram", required: false, with: :valid_telegram?
