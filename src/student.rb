@@ -42,30 +42,30 @@ class Student < StudentBase
     self.contact= {phone: phone, telegram: telegram, email: email}
   end
 
-  def self.init_with_hash(student)
-    raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
-    raise ArgumentError, "Expected at least 2 keys, given #{student.length}" unless student.length >= 2
+  # def self.init_with_hash(student)
+  #   raise ArgumentError, "Expected Hash, given #{student.class}" unless student.is_a?(Hash)
+  #   raise ArgumentError, "Expected at least 2 keys, given #{student.length}" unless student.length >= 2
 
-    normalized = Hash[student.map{ |k, v| [k.to_sym, v] }]
+  #   normalized = Hash[student.map{ |k, v| [k.to_sym, v] }]
 
-    valid_keys = [:last_name, :first_name, :patronymic, :phone, :telegram, :email, :git, :id]
-    invalid_keys = normalized.keys - valid_keys    
+  #   valid_keys = [:last_name, :first_name, :patronymic, :phone, :telegram, :email, :git, :id]
+  #   invalid_keys = normalized.keys - valid_keys    
         
-    raise ArgumentError, "Unknown type of attribute #{invalid_keys.first}" unless invalid_keys.empty? 
+  #   raise ArgumentError, "Unknown type of attribute #{invalid_keys.first}" unless invalid_keys.empty? 
 
-    normalized_hash = {
-      last_name: normalized[:last_name],
-      first_name: normalized[:first_name],
-      id: normalized[:id].to_i,
-      patronymic: normalized[:patronymic],
-      phone: normalized[:phone],
-      telegram: normalized[:telegram],
-      email: normalized[:email],
-      git: normalized[:git]
-    } 
-    new(**normalized_hash)
+  #   normalized_hash = {
+  #     last_name: normalized[:last_name],
+  #     first_name: normalized[:first_name],
+  #     id: normalized[:id].to_i,
+  #     patronymic: normalized[:patronymic],
+  #     phone: normalized[:phone],
+  #     telegram: normalized[:telegram],
+  #     email: normalized[:email],
+  #     git: normalized[:git]
+  #   } 
+  #   new(**normalized_hash)
 
-  end
+  # end
 
   def contact=(contacts)
 		raise ArgumentError, "Expected Hash, given #{contacts.class}" unless contacts.is_a?(Hash)
@@ -82,7 +82,6 @@ class Student < StudentBase
   end  
 
   def contact
-
     existing_contact=[
       { type: 'telegram', value: @telegram },
       { type: 'email', value: @email },
@@ -117,12 +116,8 @@ class Student < StudentBase
     return result
   end
 
-  def to_h
-    {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
-  end
+  # def to_h
+  #   {id: @id, last_name: last_name, first_name: first_name, patronymic: patronymic, phone: @phone, email: @email, telegram: @telegram, git: git}
+  # end
 
 end
-
-#hash = { first_name: 'Иван', email: 'ivan.petrov@example.com'}
-# ivan = Student.new(last_name: "Иван", first_name: "Петров")
-# puts ivan.contact
