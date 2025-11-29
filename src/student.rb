@@ -1,8 +1,7 @@
 require_relative 'student_base.rb'
 require_relative 'module.rb'
 
-# class Student < StudentBase
-class Student
+class Student < StudentBase
   # include Comparable
   extend ValidatedAttributes
   attr_reader :last_name, :first_name, :patronymic
