@@ -1,11 +1,11 @@
-require_relative 'student_base.rb'
+# require_relative 'student_base.rb'
 require_relative 'module.rb'
 
 class Student
   # include Comparable
   extend ValidatedAttributes
-  attr_reader :last_name, :first_name, :patronymic
-  attr_reader :id, :git
+  attr_reader :last_name, :first_name, :patronymic, :id, :git
+  # attr_reader :id, :git
 
   NAME_REGEX= /\A[A-ZА-Я]{1}[a-zа-яё]+\z/
   PHONE_REGEX= /^(\+7|8)?[\s\-\(]?(\d{3})[\s\-\)]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/
@@ -36,7 +36,9 @@ class Student
 
   def initialize(last_name:, first_name:, id: nil, patronymic: nil, phone: nil, telegram: nil, email: nil, git: nil)
     raise ArgumentError, "Incorrect git entry" unless git.nil? or self.class.valid_git?(git)
-    super(id: id.to_i, git: git)
+    # super(id: id.to_i, git: git)
+    self.id = id
+    self.git = git
     self.last_name= last_name
     self.first_name= first_name
     self.patronymic= patronymic
