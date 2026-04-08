@@ -1,0 +1,16 @@
+source 'https://rubygems.org'
+
+# Database gems
+gem 'pg'           # PostgreSQL
+gem 'mongo'       # MongoDB
+gem 'sqlite3'      # SQLite3
+
+# Utility gems
+gem 'json'
+gem 'dotenv'
+gem 'bson'        # Required for MongoDB
+
+# YAML is included in Ruby standard library, no need to install
+# gem 'yaml' # REMOVE THIS LINE - yaml is built-in!
+
+gem 'yard'

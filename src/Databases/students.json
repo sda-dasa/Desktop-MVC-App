@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "last_name": "Анохина",
+    "first_name": "Светлана",
+    "patronymic": null,
+    "phone": null,
+    "email": "svetlana.anohina@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 2,
+    "last_name": "Иванова",
+    "first_name": "Мария",
+    "patronymic": null,
+    "phone": null,
+    "email": "maria.ivanova@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 3,
+    "last_name": "Сидоров",
+    "first_name": "Алексей",
+    "patronymic": null,
+    "phone": null,
+    "email": "aleksey.sidorov@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 4,
+    "last_name": "Кузнецова",
+    "first_name": "Елена",
+    "patronymic": null,
+    "phone": null,
+    "email": "elena.kuznetsova@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 5,
+    "last_name": "Смирнов",
+    "first_name": "Дмитрий",
+    "patronymic": null,
+    "phone": null,
+    "email": "dmitry.smirnov@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 6,
+    "last_name": "Петрова",
+    "first_name": "Елена",
+    "patronymic": null,
+    "phone": null,
+    "email": "elena.petrova@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 7,
+    "last_name": "Зернов",
+    "first_name": "Семен",
+    "patronymic": null,
+    "phone": null,
+    "email": "semen.zernov@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 8,
+    "last_name": "Скворцов",
+    "first_name": "Георгий",
+    "patronymic": null,
+    "phone": null,
+    "email": "georgiy.skvorzov@example.com",
+    "telegram": null,
+    "git": null
+  },
+  {
+    "id": 9,
+    "last_name": "Светлова",
+    "first_name": "Арина",
+    "patronymic": null,
+    "phone": null,
+    "email": "elena.svetlova@example.com",
+    "telegram": null,
+    "git": null
+  }
+]

@@ -1,0 +1,73 @@
+---
+- :id: 1
+  :last_name: Петров
+  :first_name: Иван
+  :patronymic:
+  :phone:
+  :email: ivan.petrov@example.com
+  :telegram:
+  :git:
+- :id: 2
+  :last_name: Иванова
+  :first_name: Мария
+  :patronymic:
+  :phone:
+  :email: maria.ivanova@example.com
+  :telegram:
+  :git:
+- :id: 3
+  :last_name: Сидоров
+  :first_name: Алексей
+  :patronymic:
+  :phone:
+  :email: aleksey.sidorov@example.com
+  :telegram:
+  :git:
+- :id: 4
+  :last_name: Кузнецова
+  :first_name: Елена
+  :patronymic:
+  :phone:
+  :email: elena.kuznetsova@example.com
+  :telegram:
+  :git:
+- :id: 5
+  :last_name: Смирнов
+  :first_name: Дмитрий
+  :patronymic:
+  :phone:
+  :email: dmitry.smirnov@example.com
+  :telegram:
+  :git:
+- :id: 6
+  :last_name: Петрова
+  :first_name: Елена
+  :patronymic:
+  :phone:
+  :email: elena.petrova@example.com
+  :telegram:
+  :git:
+- :id: 7
+  :last_name: Зернов
+  :first_name: Семен
+  :patronymic:
+  :phone:
+  :email: semen.zernov@example.com
+  :telegram:
+  :git:
+- :id: 8
+  :last_name: Скворцов
+  :first_name: Георгий
+  :patronymic:
+  :phone:
+  :email: georgiy.skvorzov@example.com
+  :telegram:
+  :git:
+- :id: 9
+  :last_name: Светлова
+  :first_name: Арина
+  :patronymic:
+  :phone:
+  :email: elena.svetlova@example.com
+  :telegram:
+  :git:
